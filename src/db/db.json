@@ -1,0 +1,34 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "title": "Eloquent Javascript",
+      "descriptions": "Best JS book",
+      "categories": [
+        "Javascript",
+        "Programming"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "flutter best practice",
+      "descriptions": "Best flutter  book",
+      "categories": [
+        "Flutter",
+        "Programming",
+        "dart"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "AI with Python",
+      "descriptions": "learn AI with python",
+      "categories": [
+        "python",
+        "Programming",
+        "AI",
+        "ML"
+      ]
+    }
+  ]
+}
