@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import useFetch from "../hooks/UseFetch";
+import { useNavigate } from "react-router-dom";
 
 export default function Create() {
   let [title, setTitle] = useState("");
@@ -10,15 +11,23 @@ export default function Create() {
   let [newCategory, setNewCategory] = useState("");
   let [categories, setCategories] = useState([]);
 
-  let { setPostData, data: book } = useFetch(
+  let { setPostData, data: book ,loading,} = useFetch(
     "http://localhost:3000/books",
     "POST"
   );
 
   let addCategory = () => {
+    if(newCategory && categories.includes(newCategory)){
+      setNewCategory("");
+      return;
+    }
     setCategories((prev) => [...prev, newCategory]);
     setNewCategory("");
   };
+
+
+  let navigate =  useNavigate();
+
 
   let addBook = (e) => {
     e.preventDefault();
@@ -32,7 +41,11 @@ export default function Create() {
 
   useEffect(() => {
     console.log(book);
-  }, [book]);
+
+    if(book ){
+      navigate('/');
+    }
+  }, [book,navigate]);
 
   return (
     <form className="w-full max-w-lg mx-auto mt-5" onSubmit={addBook}>
@@ -107,7 +120,10 @@ export default function Create() {
             </span>
           ))}{" "}
         </div>
-        <button className="text-white bg-primary px-3 py-2 w-full  rounded-2xl gap-3 flex items-center justify-center">
+
+        {!loading && <p>loading .....</p>}
+        {
+        loading &&  <button className="text-white bg-primary px-3 py-2 w-full  rounded-2xl gap-3 flex items-center justify-center" onClick={addBook}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -124,6 +140,7 @@ export default function Create() {
           </svg>
           <span className=" md:block">Create Book</span>
         </button>
+        }
       </div>
     </form>
   );

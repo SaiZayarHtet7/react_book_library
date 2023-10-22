@@ -6,16 +6,16 @@ function useFetch(url, method = "GET") {
   let [loading, setLoading] = useState(false);
   let [error, setError] = useState(null);
 
-  useEffect(() => {
+  useEffect( ()  => {
     let abortController = new AbortController();
     let signal = abortController.signal;
     let options = {
       signal,
       method,
     };
-
+   
+    
     setLoading(true);
-
     let fetchData = () => {
       fetch(url, options)
         .then((res) => {

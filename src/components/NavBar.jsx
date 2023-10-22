@@ -1,9 +1,25 @@
 // import React from 'react''
-import{ NavLink,Link }from 'react-router-dom'
+import { useContext, useState } from 'react'
+import{ NavLink,Link, useNavigate }from 'react-router-dom'
+import { ThemeContext } from '../contexts/ThemeContext';
 
 export default function NavBar() {
+
+  let [search , setSearch ] = useState('');
+  let navigate = useNavigate();
+
+  let handleSearch = ()=>{
+    console.log(search);
+    navigate('/?search='+search);
+  }
+
+
+  let {theme}= useContext(ThemeContext);
+
+  console.log(theme);
+
   return (
-    <nav className="border border-b-1">
+    <nav className={`border border-b-1 ${theme === 'dark' ? 'bg-blue-100' : 'bg-yellow-100'}`}>
     <ul className="flex justify-between p-5 items-center max-w-6xl mx-auto">
       <li className="flex items-center gap-3">
         <svg
@@ -25,7 +41,12 @@ export default function NavBar() {
           type="text"
           placeholder="Search Books ...."
           className="outline-none"
+          value={search}
+          onChange={e=> setSearch(e.target.value)}
         />
+        <button onClick={handleSearch} to ="/create" className="text-white bg-primary px-2 py-1  rounded-2xl gap-3 flex items-center">
+          <span>Search</span>
+        </button>
       </li>
       <Link to="/" className="flex items-center gap-4 md:-ml-32 cursor-pointer ">
         <svg

@@ -3,10 +3,20 @@
 import min_thein_kha from "../assets/min_thein_kha.jpeg";
 
 import useFetch from "../hooks/UseFetch";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function BookList() {
-  let { data: books, loading, error } = useFetch("http://localhost:3000/books");
+
+  
+  let location = useLocation();
+
+  let params = new URLSearchParams(location.search);
+
+  let search = params.get("search");
+
+
+    ///checking the search parmas 
+  let { data: books, loading, error } = useFetch(`http://localhost:3000/books${search ? `?q=${search}` :``}`);
 
   if (error) {
     return <div>{error}</div>;
@@ -45,6 +55,9 @@ export default function BookList() {
           ))}
         </div>
       )}
+      {!books?.length && <p className="text-center text-xl test-gray-500">No Search Results Found</p>}
     </div>
   );
 }
+
+//https://htmlcheatsheet.com/css/
