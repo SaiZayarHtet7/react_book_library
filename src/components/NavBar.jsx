@@ -1,7 +1,7 @@
 // import React from 'react''
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import{ NavLink,Link, useNavigate }from 'react-router-dom'
-import { ThemeContext } from '../contexts/ThemeContext';
+import useTheme from '../hooks/use_theme';
 
 export default function NavBar() {
 
@@ -14,12 +14,12 @@ export default function NavBar() {
   }
 
 
-  let {theme}= useContext(ThemeContext);
+  let {theme,changeTheme}= useTheme();
 
   console.log(theme);
 
   return (
-    <nav className={`border border-b-1 ${theme === 'dark' ? 'bg-blue-100' : 'bg-yellow-100'}`}>
+    <nav onClick={changeTheme} className={`border border-b-1 ${theme === 'dark' ? 'bg-blue-100' : 'bg-yellow-100'}`}>
     <ul className="flex justify-between p-5 items-center max-w-6xl mx-auto">
       <li className="flex items-center gap-3">
         <svg
